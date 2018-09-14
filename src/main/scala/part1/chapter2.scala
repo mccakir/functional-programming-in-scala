@@ -25,7 +25,7 @@ object chapter2 {
   /**
     * Implement isSorted, which checks whether an Array[A] is sorted according to a
     * given comparison function:
-   */
+    */
   def isSorted[A](as: Array[A], ordered: (A, A) => Boolean): Boolean = {
     def loop(n: Int): Boolean =
       if (n >= as.length - 1) true
@@ -34,6 +34,33 @@ object chapter2 {
 
     loop(0)
   }
+
+  /**
+    * ´Let’s look at another example, currying,9 which converts a function f of two arguments
+    * into a function of one argument that partially applies f. Here again there’s only one
+    * implementation that compiles. Write this implementation.
+    */
+  def curry[A, B, C](f: (A, B) => C): A => (B => C) = {
+    a => b => f(a, b)
+  }
+
+  /**
+    * Implement uncurry, which reverses the transformation of curry. Note that since =>
+    * associates to the right, A => (B => C) can be written as A => B => C.
+    */
+  def uncurry[A, B, C](f: A => B => C): (A, B) => C = {
+    (a, b) => f(a)(b)
+  }
+
+  /**
+    * Let’s look at a final example, function composition, which feeds the output of one function
+    * to the input of another function. Again, the implementation of this function is
+    * fully determined by its type signature.
+    */
+  def compose[A, B, C](f: B => C, g: A => B): A => C = {
+    a => f(g(a))
+  }
+
 
   def formatResult(name: String, n: Int, f: Int => Int) = {
     val msg = "%d%s %d"
