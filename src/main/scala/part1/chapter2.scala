@@ -1,5 +1,9 @@
 package part1
 
+/**
+  * Created by mccakir on 14.09.2018
+  */
+
 object chapter2 {
 
   /**
@@ -17,15 +21,31 @@ object chapter2 {
     go(n, 0, 1)
   }
 
+
+  /**
+    * Implement isSorted, which checks whether an Array[A] is sorted according to a
+    * given comparison function:
+   */
+  def isSorted[A](as: Array[A], ordered: (A, A) => Boolean): Boolean = {
+    def loop(n: Int): Boolean =
+      if (n >= as.length - 1) true
+      else if (ordered(as(n), as(n + 1))) false
+      else loop(n + 1)
+
+    loop(0)
+  }
+
   def formatResult(name: String, n: Int, f: Int => Int) = {
     val msg = "%d%s %d"
     msg.format(n, name, f(n))
   }
 
   def main(args: Array[String]) = {
-    //println(factorial(5))
+    //Find nth Fibonacci number
     println(formatResult("nth Fibonacci number is", 8, fib))
 
+    //Is array sorted
+    println(isSorted(Array(1, 2, 3, 4, 32, 5), (x: Int, y: Int) => x > y))
   }
 
 }
